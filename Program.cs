@@ -137,7 +137,6 @@
                     if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
                         index = i;
                 }
-                //FIXME if index == -1 gives System.ArgumentOutOfRangeException
                 dictionary.RemoveAt(index);
             }
             catch (Exception e) 
@@ -146,8 +145,6 @@
                     Console.WriteLine("No dictionary has been loaded!");
                 else if (e is ArgumentOutOfRangeException)
                     Console.WriteLine("No such word in dictionary!");
-
-
             }
         }
 
