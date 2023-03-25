@@ -36,31 +36,11 @@
                     //TODO Add path to dict folder so user only need input dictionary filename.
                     if (argument.Length == 2)
                     {
-                        using (StreamReader sr = new StreamReader(argument[1]))
-                        {
-                            dictionary = new List<SweEngGloss>(); // Empty it!
-                            string line = sr.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = sr.ReadLine();
-                            }
-                        }
+                        LoadDictionary(argument[1]);
                     }
                     else if(argument.Length == 1)
                     {
-                        using (StreamReader sr = new StreamReader(defaultFile))
-                        {
-                            dictionary = new List<SweEngGloss>(); // Empty it!
-                            string line = sr.ReadLine();
-                            while (line != null)
-                            {
-                                SweEngGloss gloss = new SweEngGloss(line);
-                                dictionary.Add(gloss);
-                                line = sr.ReadLine();
-                            }
-                        }
+                        LoadDictionary(defaultFile);
                     }
                 }
                 else if (command == "list")
@@ -169,6 +149,21 @@
                 }
             }
             while (true);
+        }
+
+        private static void LoadDictionary(string file)
+        {
+            using (StreamReader sr = new StreamReader(file))
+            {
+                dictionary = new List<SweEngGloss>(); // Empty it!
+                string line = sr.ReadLine();
+                while (line != null)
+                {
+                    SweEngGloss gloss = new SweEngGloss(line);
+                    dictionary.Add(gloss);
+                    line = sr.ReadLine();
+                }
+            }
         }
     }
 }
