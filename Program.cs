@@ -83,17 +83,13 @@
                 {
                     if (argument.Length == 2)
                     {
-                        //FIXME System.NullReferenceException
                         translate(argument[1]);
                     }
                     else if (argument.Length == 1)
                     {
-                        //FIXME System.NullReferenceException
                         translate(getWordInput());
                     }
                 }
-
-                //TODO add help option
                 else if (command == "help")
                 {
                     PrintHelp();
@@ -164,12 +160,19 @@
 
         private static void translate(string word)
         {
-            foreach (SweEngGloss gloss in dictionary)
+            try
             {
-                if (gloss.word_swe == word)
-                    Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                if (gloss.word_eng == word)
-                    Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
+                foreach (SweEngGloss gloss in dictionary)
+                {
+                    if (gloss.word_swe == word)
+                        Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
+                    if (gloss.word_eng == word)
+                        Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
+                }
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("No dictionary has been loaded!");
             }
         }
 
