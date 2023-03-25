@@ -171,16 +171,23 @@
 
         private static void LoadDictionaryFile(string file)
         {
-            using (StreamReader sr = new StreamReader(file))
+            try
             {
-                dictionary = new List<SweEngGloss>(); // Empty it!
-                string line = sr.ReadLine();
-                while (line != null)
+                using (StreamReader sr = new StreamReader(file))
                 {
-                    SweEngGloss gloss = new SweEngGloss(line);
-                    dictionary.Add(gloss);
-                    line = sr.ReadLine();
+                    dictionary = new List<SweEngGloss>(); // Empty it!
+                    string line = sr.ReadLine();
+                    while (line != null)
+                    {
+                        SweEngGloss gloss = new SweEngGloss(line);
+                        dictionary.Add(gloss);
+                        line = sr.ReadLine();
+                    }
                 }
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("File not found!");
             }
         }
     }
