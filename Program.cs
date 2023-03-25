@@ -60,11 +60,7 @@
                     }
                     else if(argument.Length == 1)
                     {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string swedishWord = Console.ReadLine();
-                        Console.Write("Write word in English: ");
-                        string englishWord = Console.ReadLine();
-                        dictionary.Add(new SweEngGloss(swedishWord, englishWord));
+                        dictionary.Add(new SweEngGloss(getSweWordInput(), getEngWordInput()));
                     }
                 }
                 else if (command == "delete")
@@ -84,10 +80,8 @@
                     }
                     else if (argument.Length == 1)
                     {
-                        Console.WriteLine("Write word in Swedish: ");
-                        string swedishWord = Console.ReadLine();
-                        Console.Write("Write word in English: ");
-                        string englishWord = Console.ReadLine();
+                        string swedishWord = getSweWordInput();
+                        string englishWord = getEngWordInput();
 
                         //FIXME System.NullReferenceException (if no 'load' has been done)
                         int index = -1;
@@ -149,6 +143,20 @@
                 }
             }
             while (true);
+        }
+
+        private static string getEngWordInput()
+        {
+            Console.Write("Write word in English: ");
+            string englishWord = Console.ReadLine();
+            return englishWord;
+        }
+
+        private static string getSweWordInput()
+        {
+            Console.WriteLine("Write word in Swedish: ");
+            string swedishWord = Console.ReadLine();
+            return swedishWord;
         }
 
         private static void LoadDictionaryFile(string file)
