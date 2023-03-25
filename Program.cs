@@ -69,29 +69,12 @@
                     if (argument.Length == 3)
                     {
                         //FIXME System.NullReferenceException (if no 'load' has been done)
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++) {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
-                                index = i;
-                        }
-                        //FIXME if index == -1 gives System.ArgumentOutOfRangeException
-                        dictionary.RemoveAt(index);
+                        RemoveWordPair(argument[1], argument[2]);
                     }
                     else if (argument.Length == 1)
                     {
-                        string swedishWord = getSweWordInput();
-                        string englishWord = getEngWordInput();
-
                         //FIXME System.NullReferenceException (if no 'load' has been done)
-                        int index = -1;
-                        for (int i = 0; i < dictionary.Count; i++)
-                        {
-                            SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == swedishWord && gloss.word_eng == englishWord)
-                                index = i;
-                        }
-                        dictionary.RemoveAt(index);
+                        RemoveWordPair(getSweWordInput(), getEngWordInput());
                     }
                 }
                 else if (command == "translate")
@@ -122,6 +105,19 @@
                 }
             }
             while (true);
+        }
+
+        private static void RemoveWordPair(string sweWord, string engWord)
+        {
+            int index = -1;
+            for (int i = 0; i < dictionary.Count; i++)
+            {
+                SweEngGloss gloss = dictionary[i];
+                if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
+                    index = i;
+            }
+            //FIXME if index == -1 gives System.ArgumentOutOfRangeException
+            dictionary.RemoveAt(index);
         }
 
         private static void PrintHelp()
