@@ -99,26 +99,14 @@
                     if (argument.Length == 2)
                     {
                         //FIXME System.NullReferenceException
-                        foreach (SweEngGloss gloss in dictionary)
-                        {
-                            if (gloss.word_swe == argument[1])
-                                Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == argument[1])
-                                Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
-                        }
+                        translate(argument[1]);
                     }
                     else if (argument.Length == 1)
                     {   
                         Console.WriteLine("Write word to be translated: ");
                         string word = Console.ReadLine();
                         //FIXME System.NullReferenceException
-                        foreach (SweEngGloss gloss in dictionary)
-                        {
-                            if (gloss.word_swe == word)
-                                Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == word)
-                                Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
-                        }
+                        translate(word);
                     }
                 }
 
@@ -143,6 +131,17 @@
                 }
             }
             while (true);
+        }
+
+        private static void translate(string word)
+        {
+            foreach (SweEngGloss gloss in dictionary)
+            {
+                if (gloss.word_swe == word)
+                    Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
+                if (gloss.word_eng == word)
+                    Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
+            }
         }
 
         private static string getEngWordInput()
