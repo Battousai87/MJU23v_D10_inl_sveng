@@ -44,7 +44,6 @@
                 }
                 else if (command == "list")
                 {
-                    //FIXME crashes on non initiated dictionary (System.NullReferenceException)
                     try
                     {
                         foreach (SweEngGloss gloss in dictionary)
@@ -59,7 +58,6 @@
                 }
                 else if (command == "new")
                 {
-                    //FIXME System.NullReferenceException (if no 'load' has been done)
                     if (argument.Length == 3)
                     {
                         addWordPair(argument[1], argument[2]);
@@ -120,7 +118,14 @@
 
         private static void addWordPair(string sweWord, string engWord)
         {
-            dictionary.Add(new SweEngGloss(sweWord, engWord));
+            try
+            {
+                dictionary.Add(new SweEngGloss(sweWord, engWord));
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("No dictionary has been loaded!");
+            }
         }
 
         private static void RemoveWordPair(string sweWord, string engWord)
