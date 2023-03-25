@@ -56,11 +56,11 @@
                     //FIXME System.NullReferenceException (if no 'load' has been done)
                     if (argument.Length == 3)
                     {
-                        dictionary.Add(new SweEngGloss(argument[1], argument[2]));
+                        addWordPair(argument[1], argument[2]);
                     }
                     else if(argument.Length == 1)
                     {
-                        dictionary.Add(new SweEngGloss(getSweWordInput(), getEngWordInput()));
+                        addWordPair(getSweWordInput(), getEngWordInput());
                     }
                 }
                 else if (command == "delete")
@@ -105,6 +105,11 @@
                 }
             }
             while (true);
+        }
+
+        private static void addWordPair(string sweWord, string engWord)
+        {
+            dictionary.Add(new SweEngGloss(sweWord, engWord));
         }
 
         private static void RemoveWordPair(string sweWord, string engWord)
