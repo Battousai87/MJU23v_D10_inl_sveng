@@ -85,11 +85,9 @@
                         translate(argument[1]);
                     }
                     else if (argument.Length == 1)
-                    {   
-                        Console.WriteLine("Write word to be translated: ");
-                        string word = Console.ReadLine();
+                    {
                         //FIXME System.NullReferenceException
-                        translate(word);
+                        translate(getWordInput());
                     }
                 }
 
@@ -105,6 +103,13 @@
                 }
             }
             while (true);
+        }
+
+        private static string getWordInput()
+        {
+            Console.WriteLine("Write word to be translated: ");
+            string word = Console.ReadLine();
+            return word;
         }
 
         private static void addWordPair(string sweWord, string engWord)
