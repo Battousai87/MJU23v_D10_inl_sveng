@@ -81,10 +81,10 @@
                     else if(argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();
+                        string swedishWord = Console.ReadLine();
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();
-                        dictionary.Add(new SweEngGloss(s, e));
+                        string englishWord = Console.ReadLine();
+                        dictionary.Add(new SweEngGloss(swedishWord, englishWord));
                     }
                 }
                 else if (command == "delete")
@@ -99,21 +99,22 @@
                             if (gloss.word_swe == argument[1] && gloss.word_eng == argument[2])
                                 index = i;
                         }
+                        //FIXME if index == -1 gives System.ArgumentOutOfRangeException
                         dictionary.RemoveAt(index);
                     }
                     else if (argument.Length == 1)
                     {
                         Console.WriteLine("Write word in Swedish: ");
-                        string s = Console.ReadLine();
+                        string swedishWord = Console.ReadLine();
                         Console.Write("Write word in English: ");
-                        string e = Console.ReadLine();
+                        string englishWord = Console.ReadLine();
 
                         //FIXME System.NullReferenceException (if no 'load' has been done)
                         int index = -1;
                         for (int i = 0; i < dictionary.Count; i++)
                         {
                             SweEngGloss gloss = dictionary[i];
-                            if (gloss.word_swe == s && gloss.word_eng == e)
+                            if (gloss.word_swe == swedishWord && gloss.word_eng == englishWord)
                                 index = i;
                         }
                         dictionary.RemoveAt(index);
@@ -135,13 +136,13 @@
                     else if (argument.Length == 1)
                     {   
                         Console.WriteLine("Write word to be translated: ");
-                        string s = Console.ReadLine();
+                        string word = Console.ReadLine();
                         //FIXME System.NullReferenceException
                         foreach (SweEngGloss gloss in dictionary)
                         {
-                            if (gloss.word_swe == s)
+                            if (gloss.word_swe == word)
                                 Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
-                            if (gloss.word_eng == s)
+                            if (gloss.word_eng == word)
                                 Console.WriteLine($"Swedish for {gloss.word_eng} is {gloss.word_swe}");
                         }
                     }
