@@ -32,7 +32,6 @@
                 }
                 else if (command == "load")
                 {
-                    //FIXME crashes on System.IO.FileNotFoundException
                     //TODO Add path to dict folder so user only need input dictionary filename.
                     if (argument.Length == 2)
                     {
@@ -46,9 +45,16 @@
                 else if (command == "list")
                 {
                     //FIXME crashes on non initiated dictionary (System.NullReferenceException)
-                    foreach (SweEngGloss gloss in dictionary)
+                    try
                     {
-                        Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+                        foreach (SweEngGloss gloss in dictionary)
+                        {
+                            Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
+                        }
+                    }
+                    catch (NullReferenceException)
+                    {
+                        Console.WriteLine("No dictionary has been loaded!");
                     }
                 }
                 else if (command == "new")
