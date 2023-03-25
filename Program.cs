@@ -72,12 +72,10 @@
                     
                     if (argument.Length == 3)
                     {
-                        //FIXME System.NullReferenceException (if no 'load' has been done)
                         RemoveWordPair(argument[1], argument[2]);
                     }
                     else if (argument.Length == 1)
                     {
-                        //FIXME System.NullReferenceException (if no 'load' has been done)
                         RemoveWordPair(getSweWordInput(), getEngWordInput());
                     }
                 }
@@ -130,15 +128,27 @@
 
         private static void RemoveWordPair(string sweWord, string engWord)
         {
-            int index = -1;
-            for (int i = 0; i < dictionary.Count; i++)
+            try
             {
-                SweEngGloss gloss = dictionary[i];
-                if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
-                    index = i;
+                int index = -1;
+                for (int i = 0; i < dictionary.Count; i++)
+                {
+                    SweEngGloss gloss = dictionary[i];
+                    if (gloss.word_swe == sweWord && gloss.word_eng == engWord)
+                        index = i;
+                }
+                //FIXME if index == -1 gives System.ArgumentOutOfRangeException
+                dictionary.RemoveAt(index);
             }
-            //FIXME if index == -1 gives System.ArgumentOutOfRangeException
-            dictionary.RemoveAt(index);
+            catch (Exception e) 
+            {   
+                if (e is NullReferenceException)
+                    Console.WriteLine("No dictionary has been loaded!");
+                else if (e is ArgumentOutOfRangeException)
+                    Console.WriteLine("No such word in dictionary!");
+
+
+            }
         }
 
         private static void PrintHelp()
