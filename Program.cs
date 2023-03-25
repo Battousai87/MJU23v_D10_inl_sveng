@@ -113,16 +113,7 @@
                 //TODO add help option
                 else if (command == "help")
                 {
-                    Console.WriteLine("help:                show this help text");
-                    Console.WriteLine("load:                load default dictionary file");
-                    Console.WriteLine("load /file/:         load user defined file");
-                    Console.WriteLine("list:                lists all words from dictionary file");
-                    Console.WriteLine("new:                 adds new word to dictionary");
-                    Console.WriteLine("new s e:             adds new word to dictionary were 's' is swedish word and e is 'english' word");
-                    Console.WriteLine("delete:              delete word from dictionary");
-                    Console.WriteLine("delete s e:          delete word from dictionary were 's' is swedish word and e is 'english' word");
-                    Console.WriteLine("translate:           translates word from dictionary");
-                    Console.WriteLine("translate word:      translates word from dictionary were 'word' is word to be translated");
+                    PrintHelp();
                 }
 
                 else
@@ -131,6 +122,20 @@
                 }
             }
             while (true);
+        }
+
+        private static void PrintHelp()
+        {
+            Console.WriteLine("help:                show this help text");
+            Console.WriteLine("load:                load default dictionary file");
+            Console.WriteLine("load /file/:         load user defined file");
+            Console.WriteLine("list:                lists all words from dictionary file");
+            Console.WriteLine("new:                 adds new word to dictionary");
+            Console.WriteLine("new s e:             adds new word to dictionary were 's' is swedish word and e is 'english' word");
+            Console.WriteLine("delete:              delete word from dictionary");
+            Console.WriteLine("delete s e:          delete word from dictionary were 's' is swedish word and e is 'english' word");
+            Console.WriteLine("translate:           translates word from dictionary");
+            Console.WriteLine("translate word:      translates word from dictionary were 'word' is word to be translated");
         }
 
         private static void translate(string word)
