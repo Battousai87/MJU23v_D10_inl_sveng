@@ -36,11 +36,11 @@
                     //TODO Add path to dict folder so user only need input dictionary filename.
                     if (argument.Length == 2)
                     {
-                        LoadDictionary(argument[1]);
+                        LoadDictionaryFile(argument[1]);
                     }
                     else if(argument.Length == 1)
                     {
-                        LoadDictionary(defaultFile);
+                        LoadDictionaryFile(defaultFile);
                     }
                 }
                 else if (command == "list")
@@ -151,7 +151,7 @@
             while (true);
         }
 
-        private static void LoadDictionary(string file)
+        private static void LoadDictionaryFile(string file)
         {
             using (StreamReader sr = new StreamReader(file))
             {
