@@ -28,10 +28,13 @@
                 if (command == "quit")
                 {
                     Console.WriteLine("Goodbye!");
+                    break;
                 }
                 else if (command == "load")
                 {
-                    if(argument.Length == 2)
+                    //FIXME crashes on System.IO.FileNotFoundException
+                    //TODO Add path to dict folder so user only need input dictionary filename.
+                    if (argument.Length == 2)
                     {
                         using (StreamReader sr = new StreamReader(argument[1]))
                         {
@@ -62,13 +65,15 @@
                 }
                 else if (command == "list")
                 {
-                    foreach(SweEngGloss gloss in dictionary)
+                    //FIXME crashes on non initiated dictionary (System.NullReferenceException)
+                    foreach (SweEngGloss gloss in dictionary)
                     {
                         Console.WriteLine($"{gloss.word_swe,-10}  - {gloss.word_eng,-10}");
                     }
                 }
                 else if (command == "new")
                 {
+                    //FIXME System.NullReferenceException (if no 'load' has been done)
                     if (argument.Length == 3)
                     {
                         dictionary.Add(new SweEngGloss(argument[1], argument[2]));
@@ -84,8 +89,10 @@
                 }
                 else if (command == "delete")
                 {
+                    
                     if (argument.Length == 3)
                     {
+                        //FIXME System.NullReferenceException (if no 'load' has been done)
                         int index = -1;
                         for (int i = 0; i < dictionary.Count; i++) {
                             SweEngGloss gloss = dictionary[i];
@@ -100,6 +107,8 @@
                         string s = Console.ReadLine();
                         Console.Write("Write word in English: ");
                         string e = Console.ReadLine();
+
+                        //FIXME System.NullReferenceException (if no 'load' has been done)
                         int index = -1;
                         for (int i = 0; i < dictionary.Count; i++)
                         {
@@ -114,7 +123,8 @@
                 {
                     if (argument.Length == 2)
                     {
-                        foreach(SweEngGloss gloss in dictionary)
+                        //FIXME System.NullReferenceException
+                        foreach (SweEngGloss gloss in dictionary)
                         {
                             if (gloss.word_swe == argument[1])
                                 Console.WriteLine($"English for {gloss.word_swe} is {gloss.word_eng}");
@@ -123,9 +133,10 @@
                         }
                     }
                     else if (argument.Length == 1)
-                    {
+                    {   
                         Console.WriteLine("Write word to be translated: ");
                         string s = Console.ReadLine();
+                        //FIXME System.NullReferenceException
                         foreach (SweEngGloss gloss in dictionary)
                         {
                             if (gloss.word_swe == s)
@@ -135,6 +146,9 @@
                         }
                     }
                 }
+
+                //TODO add help option
+
                 else
                 {
                     Console.WriteLine($"Unknown command: '{command}'");
